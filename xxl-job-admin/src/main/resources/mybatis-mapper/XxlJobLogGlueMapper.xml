@@ -23,22 +23,27 @@
 		t.update_time
 	</sql>
 	
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobLogGlue" useGeneratedKeys="true" keyProperty="id" >
-		INSERT INTO XXL_JOB_QRTZ_TRIGGER_LOGGLUE (
-			`job_id`,
-			`glue_type`,
-			`glue_source`,
-			`glue_remark`,
-			`add_time`, 
-			`update_time`
+	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobLogGlue"  keyProperty="id" >
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_T_QRTZ_TRIGGER_LOGGLUE.Nextval AS id FROM dual
+		</selectKey>
+		INSERT INTO OMAR_QRTZ_TRIGGER_LOGGLUE (
+			id,
+			job_id,
+			glue_type,
+			glue_source,
+			glue_remark,
+			add_time,
+			update_time
 		) VALUES (
+			#{id},
 			#{jobId},
 			#{glueType},
 			#{glueSource},
 			#{glueRemark},
 			now(),
 			now()
-		);
+		)
 		<!--<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID() 
 		</selectKey>-->
@@ -46,26 +51,43 @@
 	
 	<select id="findByJobId" parameterType="java.lang.Integer" resultMap="XxlJobLogGlue">
 		SELECT <include refid="Base_Column_List" />
-		FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE AS t
+		FROM OMAR_QRTZ_TRIGGER_LOGGLUE  t
 		WHERE t.job_id = #{jobId}
 		ORDER BY id DESC
 	</select>
 	
-	<delete id="removeOld" >
-		DELETE FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE
+	<!--<delete id="removeOld" >-->
+		<!--DELETE FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE-->
+		<!--WHERE id NOT in(-->
+			<!--SELECT id FROM(-->
+				<!--SELECT id FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE-->
+				<!--WHERE `job_id` = #{jobId}-->
+				<!--ORDER BY update_time desc-->
+				<!--LIMIT 0, #{limit}-->
+			<!--) t1-->
+		<!--) AND `job_id` = #{jobId}-->
+	<!--</delete>-->
+
+	<delete id="removeOld"  parameterType="java.lang.Integer">
+		DELETE FROM OMAR_QRTZ_TRIGGER_LOGGLUE
 		WHERE id NOT in(
 			SELECT id FROM(
-				SELECT id FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE
-				WHERE `job_id` = #{jobId}
-				ORDER BY update_time desc
-				LIMIT 0, #{limit}
+				select id from
+				(SELECT rownum r, id FROM OMAR_QRTZ_TRIGGER_LOGGLUE
+					WHERE
+					where rownum<![CDATA[<=]]>#{limit}
+					job_id = #{jobId}
+					ORDER BY update_time desc)
+				where r>=0
 			) t1
-		) AND `job_id` = #{jobId}
+		)
+		AND job_id = #{jobId}
 	</delete>
-	
+
+
 	<delete id="deleteByJobId" parameterType="java.lang.Integer" >
-		DELETE FROM XXL_JOB_QRTZ_TRIGGER_LOGGLUE
-		WHERE `job_id` = #{jobId}
+		DELETE FROM OMAR_QRTZ_TRIGGER_LOGGLUE
+		WHERE job_id = #{jobId}
 	</delete>
 	
 </mapper>

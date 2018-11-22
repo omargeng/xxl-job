@@ -88,6 +88,12 @@
 			<version>${mysql-connector-java.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3</version>
+		</dependency>
+
 		<!-- commons-collections4 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

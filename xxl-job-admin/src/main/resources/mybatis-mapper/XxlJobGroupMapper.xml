@@ -7,7 +7,7 @@
 		<result column="id" property="id" />
 	    <result column="app_name" property="appName" />
 	    <result column="title" property="title" />
-	    <result column="order" property="order" />
+	    <result column="orders" property="order" />
 		<result column="address_type" property="addressType" />
 		<result column="address_list" property="addressList" />
 	</resultMap>
@@ -16,47 +16,50 @@
 		t.id,
 		t.app_name,
 		t.title,
-		t.`order`,
+		t.orders,
 		t.address_type,
 		t.address_list
 	</sql>
 
 	<select id="findAll" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
-		ORDER BY t.order ASC
+		FROM OMAR_QRTZ_TRIGGER_GROUP  t
+		ORDER BY t.orders ASC
 	</select>
 
 	<select id="findByAddressType" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
+		FROM OMAR_QRTZ_TRIGGER_GROUP  t
 		WHERE t.address_type = #{addressType}
-		ORDER BY t.order ASC
+		ORDER BY t.orders ASC
 	</select>
 
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
-		INSERT INTO XXL_JOB_QRTZ_TRIGGER_GROUP ( `app_name`, `title`, `order`, `address_type`, `address_list`)
-		values ( #{appName}, #{title}, #{order}, #{addressType}, #{addressList});
+	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup"  keyProperty="id" >
+		<selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="id">
+			SELECT SEQ_T_QRTZ_TRIGGER_GROUP.Nextval AS id FROM dual
+		</selectKey>
+		INSERT INTO OMAR_QRTZ_TRIGGER_GROUP ( id,app_name, title, orders, address_type, address_list)
+		values ( #{id},#{appName}, #{title}, #{order}, #{addressType}, #{addressList})
 	</insert>
 
 	<update id="update" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" >
-		UPDATE XXL_JOB_QRTZ_TRIGGER_GROUP
-		SET `app_name` = #{appName},
-			`title` = #{title},
-			`order` = #{order},
-			`address_type` = #{addressType},
-			`address_list` = #{addressList}
+		UPDATE OMAR_QRTZ_TRIGGER_GROUP
+		SET app_name = #{appName},
+			title = #{title},
+			orders = #{order},
+			address_type = #{addressType},
+			address_list = #{addressList,jdbcType=VARCHAR}
 		WHERE id = #{id}
 	</update>
 
 	<delete id="remove" parameterType="java.lang.Integer" >
-		DELETE FROM XXL_JOB_QRTZ_TRIGGER_GROUP
+		DELETE FROM OMAR_QRTZ_TRIGGER_GROUP
 		WHERE id = #{id}
 	</delete>
 
 	<select id="load" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
+		FROM OMAR_QRTZ_TRIGGER_GROUP  t
 		WHERE t.id = #{id}
 	</select>
 
