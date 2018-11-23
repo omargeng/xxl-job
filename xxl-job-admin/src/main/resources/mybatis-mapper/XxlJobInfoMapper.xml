@@ -178,8 +178,8 @@
 			executor_timeout = ${executorTimeout},
 			executor_fail_retry_count = ${executorFailRetryCount},
 			glue_type = #{glueType},
-			glue_source = #{glueSource},
-			glue_remark = #{glueRemark},
+			glue_source = #{glueSource,jdbcType=VARCHAR},
+			glue_remark = #{glueRemark,jdbcType=VARCHAR},
 			glue_updatetime = #{glueUpdatetime},
 			child_jobid = #{childJobId}
 		WHERE id = #{id}
