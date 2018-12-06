@@ -84,6 +84,8 @@ public class XxlJobExecutor  {
         initRpcProvider(ip, port, appName, accessToken);
     }
     public void destroy(){
+
+        jobHandlerRepository.clear();
         // destory jobThreadRepository
         if (jobThreadRepository.size() > 0) {
             for (Map.Entry<Integer, JobThread> item: jobThreadRepository.entrySet()) {

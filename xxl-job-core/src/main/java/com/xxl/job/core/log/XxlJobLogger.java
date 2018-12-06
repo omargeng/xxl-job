@@ -22,7 +22,7 @@ public class XxlJobLogger {
      * @param callInfo
      * @param appendLog
      */
-    private static void logDetail(StackTraceElement callInfo, String appendLog) {
+    public static void logDetail(StackTraceElement callInfo, String appendLog) {
 
 
         /*// "yyyy-MM-dd HH:mm:ss [ClassName]-[MethodName]-[LineNumber]-[ThreadName] log";

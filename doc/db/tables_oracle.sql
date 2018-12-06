@@ -527,45 +527,18 @@ is '执行器地址列表，多地址逗号分隔';
 
 INSERT INTO  OMAR_QRTZ_TRIGGER_GROUP  (id,  app_name ,  title ,  orders ,  address_type ,  address_list ) values ('1', 'xxl-job-executor-sample', '执行器', '1', '0', null);
 
-INSERT INTO OMAR_QRTZ_TRIGGER_INFO
-(id,
-job_group,
-job_cron,
-job_desc,
-add_time,
-update_time,
-author,
-alarm_email,
-executor_route_strategy,
-executor_handler,
-executor_param,
-executor_block_strategy,
-executor_timeout,
-executor_fail_retry_count,
-glue_type,
-glue_source,
-glue_remark,
-glue_updatetime,
-child_jobid)
-VALUES
-(1,
-1,
-'0 0 0 * * ? *',
-'测试任务1',
-systimestamp,
-systimestamp,
-'XXL',
-'',
-'FIRST',
-'demoJobHandler',
-'',
-'SERIAL_EXECUTION',
-0,
-0,
-'BEAN',
-'',
-'GLUE代码初始化',
-systimestamp,
-'');
+insert into omar_qrtz_trigger_info (ID, JOB_GROUP, JOB_CRON, JOB_DESC, ADD_TIME, UPDATE_TIME, AUTHOR, ALARM_EMAIL, EXECUTOR_ROUTE_STRATEGY, EXECUTOR_HANDLER, EXECUTOR_PARAM, EXECUTOR_BLOCK_STRATEGY, EXECUTOR_TIMEOUT, GLUE_TYPE, GLUE_SOURCE, GLUE_REMARK, GLUE_UPDATETIME, CHILD_JOBID, EXECUTOR_FAIL_RETRY_COUNT)
+values (SEQ_T_QRTZ_TRIGGER_INFO.NEXTVAL, 1, '0 0/3 * * * ? ', '启动batch服务', to_date('27-11-2018 09:26:38', 'dd-mm-yyyy hh24:mi:ss'), to_date('27-11-2018 09:27:15', 'dd-mm-yyyy hh24:mi:ss'), 'xx', null, 'ROUND', 'simpleJobHandler', 'launchBatchProcess', 'SERIAL_EXECUTION', 0, 'BEAN', '<CLOB>', 'GLUE代码初始化', to_date('27-11-2018 09:26:38', 'dd-mm-yyyy hh24:mi:ss'), null, 0);
 
+insert into omar_qrtz_trigger_info (ID, JOB_GROUP, JOB_CRON, JOB_DESC, ADD_TIME, UPDATE_TIME, AUTHOR, ALARM_EMAIL, EXECUTOR_ROUTE_STRATEGY, EXECUTOR_HANDLER, EXECUTOR_PARAM, EXECUTOR_BLOCK_STRATEGY, EXECUTOR_TIMEOUT, GLUE_TYPE, GLUE_SOURCE, GLUE_REMARK, GLUE_UPDATETIME, CHILD_JOBID, EXECUTOR_FAIL_RETRY_COUNT)
+values (SEQ_T_QRTZ_TRIGGER_INFO.NEXTVAL, 1, '0 00 0 * * ?', '系统日切', to_date('27-11-2018 09:43:47', 'dd-mm-yyyy hh24:mi:ss'), to_date('27-11-2018 09:45:00', 'dd-mm-yyyy hh24:mi:ss'), 'xxx', null, 'ROUND', 'simpleJobHandler', 'VAFSautoCutOff', 'SERIAL_EXECUTION', 0, 'BEAN', '<CLOB>', 'GLUE代码初始化', to_date('27-11-2018 09:43:47', 'dd-mm-yyyy hh24:mi:ss'), null, 0);
+
+insert into omar_qrtz_trigger_info (ID, JOB_GROUP, JOB_CRON, JOB_DESC, ADD_TIME, UPDATE_TIME, AUTHOR, ALARM_EMAIL, EXECUTOR_ROUTE_STRATEGY, EXECUTOR_HANDLER, EXECUTOR_PARAM, EXECUTOR_BLOCK_STRATEGY, EXECUTOR_TIMEOUT, GLUE_TYPE, GLUE_SOURCE, GLUE_REMARK, GLUE_UPDATETIME, CHILD_JOBID, EXECUTOR_FAIL_RETRY_COUNT)
+values (SEQ_T_QRTZ_TRIGGER_INFO.NEXTVAL, 1, '0 05 0 * * ?', '订单自动收货付款', to_date('27-11-2018 09:48:48', 'dd-mm-yyyy hh24:mi:ss'), to_date('27-11-2018 13:33:37', 'dd-mm-yyyy hh24:mi:ss'), 'xx', null, 'ROUND', 'simpleJobHandler', 'automaticPaymentProcessing', 'SERIAL_EXECUTION', 0, 'BEAN', '<CLOB>', 'GLUE代码初始化', to_date('27-11-2018 09:48:48', 'dd-mm-yyyy hh24:mi:ss'), null, 0);
+
+insert into omar_qrtz_trigger_info (ID, JOB_GROUP, JOB_CRON, JOB_DESC, ADD_TIME, UPDATE_TIME, AUTHOR, ALARM_EMAIL, EXECUTOR_ROUTE_STRATEGY, EXECUTOR_HANDLER, EXECUTOR_PARAM, EXECUTOR_BLOCK_STRATEGY, EXECUTOR_TIMEOUT, GLUE_TYPE, GLUE_SOURCE, GLUE_REMARK, GLUE_UPDATETIME, CHILD_JOBID, EXECUTOR_FAIL_RETRY_COUNT)
+values (SEQ_T_QRTZ_TRIGGER_INFO.NEXTVAL, 1, '0 05 0 * * ?', '手续费结算定时任务', to_date('27-11-2018 09:53:47', 'dd-mm-yyyy hh24:mi:ss'), to_date('27-11-2018 13:33:30', 'dd-mm-yyyy hh24:mi:ss'), 'xx', null, 'ROUND', 'simpleJobHandler', 'transaction.feeSettlement', 'SERIAL_EXECUTION', 0, 'BEAN', '<CLOB>', 'GLUE代码初始化', to_date('27-11-2018 09:53:47', 'dd-mm-yyyy hh24:mi:ss'), null, 0);
+
+insert into omar_qrtz_trigger_info (ID, JOB_GROUP, JOB_CRON, JOB_DESC, ADD_TIME, UPDATE_TIME, AUTHOR, ALARM_EMAIL, EXECUTOR_ROUTE_STRATEGY, EXECUTOR_HANDLER, EXECUTOR_PARAM, EXECUTOR_BLOCK_STRATEGY, EXECUTOR_TIMEOUT, GLUE_TYPE, GLUE_SOURCE, GLUE_REMARK, GLUE_UPDATETIME, CHILD_JOBID, EXECUTOR_FAIL_RETRY_COUNT)
+values (SEQ_T_QRTZ_TRIGGER_INFO.NEXTVAL, 1, '0 05 0 * * ?', '延迟解冻付款结算任务', to_date('27-11-2018 09:56:02', 'dd-mm-yyyy hh24:mi:ss'), to_date('27-11-2018 09:58:09', 'dd-mm-yyyy hh24:mi:ss'), 'xx', null, 'ROUND', 'simpleJobHandler', 'transaction.thawSettlement', 'SERIAL_EXECUTION', 0, 'BEAN', '<CLOB>', 'GLUE代码初始化', to_date('27-11-2018 09:56:02', 'dd-mm-yyyy hh24:mi:ss'), null, 0);
 commit;

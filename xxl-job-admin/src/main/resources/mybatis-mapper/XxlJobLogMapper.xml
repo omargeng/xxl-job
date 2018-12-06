@@ -222,6 +222,7 @@
 		FROM OMAR_QRTZ_TRIGGER_LOG
 		WHERE trigger_time BETWEEN #{from} and #{to}
 		GROUP BY trigger_time
+		order by "triggerDay"
     </select>
 
     <!--<delete id="clearLog" >-->
