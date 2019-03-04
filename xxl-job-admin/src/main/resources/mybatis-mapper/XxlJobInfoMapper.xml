@@ -86,7 +86,7 @@
 			AND t.executor_handler like CONCAT(CONCAT('%', #{executorHandler,jdbcType=VARCHAR}), '%')
 		</if>
 		ORDER BY id DESC)
-		where r>=#{offset}
+		where r>#{offset}
 	</select>
 
 

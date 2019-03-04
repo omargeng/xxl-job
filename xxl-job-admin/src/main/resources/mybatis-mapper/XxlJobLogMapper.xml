@@ -111,7 +111,7 @@
             AND t.handle_code = 0
         </if>
         ORDER BY id DESC)
-        where r>=#{offset}
+        where r>#{offset}
     </select>
 
     <select id="pageListCount" resultType="int">

@@ -1,6 +1,7 @@
 package com.xxl.job.core.log;
 
 import com.xxl.job.core.util.DateUtil;
+import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
@@ -65,6 +66,18 @@ public class XxlJobLogger {
         StackTraceElement callInfo = new Throwable().getStackTrace()[1];
         logDetail(callInfo, appendLog);
     }
+
+
+    public static void log(String appendLogPattern, Log log, Object ... appendLogArguments) {
+        FormattingTuple ft = MessageFormatter.arrayFormat(appendLogPattern, appendLogArguments);
+        String appendLog = ft.getMessage();
+        if(log!=null){
+            log.info(appendLog);
+        }
+        StackTraceElement callInfo = new Throwable().getStackTrace()[1];
+        logDetail(callInfo, appendLog);
+    }
+
 
     /**
      * append exception stack
